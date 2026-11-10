@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year K ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Outfit:wght@300;400;600&display=swap');
+
+body{
+ margin:0;
+ font-family:'Outfit',sans-serif;
+ background:radial-gradient(circle at top,#ffe6f2,#ff3366);
+ height:100vh;
+ overflow:hidden;
+ color:#5a0023;
+}
+
+.center{
+ position:fixed;
+ inset:0;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ padding:20px;
+}
+
+.hidden{display:none;}
+.love{font-family:'Pacifico',cursive;}
+
+button{
+ margin-top:26px;
+ padding:16px 40px;
+ border:none;
+ border-radius:50px;
+ background:linear-gradient(135deg,#ff1a53,#ff6699);
+ color:white;
+ font-size:18px;
+ font-weight:600;
+ cursor:pointer;
+ box-shadow:0 12px 28px rgba(0,0,0,0.25);
+ transition:transform 0.2s;
+}
+
+button:active{transform:scale(0.95);}
+
+.sparkle{font-size:100px;animation:beat 1.4s infinite;}
+@keyframes beat{50%{transform:scale(1.2);}}
+
+.names{font-family:'Pacifico',cursive;font-size:38px;color:#000080;text-shadow:0 2px 10px rgba(255,255,255,0.6);}
+
+.float{
+ position:fixed;
+ top:-20px;
+ animation:fall linear infinite;
+ pointer-events:none;
+}
+@keyframes fall{
+ to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
+
+.letter{
+ background:rgba(255, 255, 255, 0.95);
+ padding:26px;
+ border-radius:22px;
+ max-width:330px;
+ box-shadow:0 18px 40px rgba(0,0,0,0.3);
+ border:2px solid #ffb3cc;
+}
+
+.photo{
+ width:220px;
+ height:220px;
+ object-fit:cover;
+ border-radius:50%;
+ border:4px solid #fff;
+ box-shadow:0 18px 40px rgba(0,0,0,0.35);
+ margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" preload="auto"></audio>
+
+<div id="s1" class="center">
+ <div class="sparkle">🎆</div>
+ <h1 class="love" style="font-size: 36px; margin-bottom: 5px;">Happy New Year my love K❤️ </h1>
+ <p style="font-size: 20px; font-weight: 600;">A new year, but my love remains the same — completely for you! ✨</p>
+ <button onclick="start()">Open New Year Magic 🎇</button>
+</div>
+
+<div id="s2" class="center hidden">
+ <div class="names">Komal ❤️ Ketan</div>
+ <p id="msg" style="min-height:120px; font-size: 19px; font-weight: 500; line-height: 1.6; padding: 0 10px;"></p>
+ <button onclick="next()">See More 💖</button>
+</div>
+
+<div id="final" class="center hidden">
+    <div class="letter">
+        <h2 class="love" style="margin-top:0;">My Dearest K 💌</h2>
+        <p style="font-size:17px; line-height: 1.6;">
+            Happy New Year to someone very special! <br>
+            I hope this year brings you  ❤️<br>
+            endless <br>
+            happiness and success.
+        </p>
+        <p class="love" style="font-size: 20px; color: #ff1a53;">Happy New Year 🎆</p>
+        <button onclick="show('photo')">Final Surprise 💖</button>
+    </div>
+</div>
+
+<div id="photo" class="center hidden">
+    <img src="your-photo.jpg" class="photo" alt="Komal & Ketan">
+    <h2 class="love" style="margin: 10px 0;">Forever Us ❤️</h2>
+    <p style="font-size: 18px; font-weight: 500; margin: 5px 0;">New Year, New Beginning, Together Forever♾️</p>
+    <p class="love" style="font-size: 20px; color: #fff; margin-top: 10px;">Happy New year, My Love K ❤️  ✨</p>  
+    <button onclick="exitApp()">Exit ❌</button>
+</div>
+
+<!-- Thank You Screen Element -->
+<div id="thankyou" class="center hidden" style="background:radial-gradient(circle at top,#ffe6f2,#ff3366); color:white; z-index:999;">
+    <h1 class="love" style="font-size:40px;">Thank You ❤️</h1>
+    <p style="font-size:20px; margin-top:10px; font-weight:500;">Have a wonderful New Year ahead, my love!</p>
+</div>
+
+<script>
+/* 🎵 LOCAL SONGS ARRAY */
+const songs=[
+ "romantic.mp3",
+ "romantic2.mp3",
+ "romantic4.mp3"
+];
+
+const music=document.getElementById("music");
+
+function play(index){
+ music.src=songs[index];
+ music.play().catch((err)=>{
+  console.log("Audio play blocked or file missing: ", err);
+ });
+}
+
+/* 💖 NEW YEAR MESSAGE STORY */
+const messages=[
+ "On this day of New year...",
+ "I only have one sincere wish in my heart...",
+ "That every single happiness in my life connects with you...",
+ "Happy New Year to my love K ❤️ You are my most wonderfull and Beautiful      woman 👰"
+];
+
+let m=0,c=0;
+
+function show(id){
+ document.querySelectorAll(".center").forEach(s=>{
+  if(s.id !== 'thankyou') s.classList.add("hidden");
+ });
+ document.getElementById(id).classList.remove("hidden");
+
+ if(id==="s2") play(0);
+ if(id==="final") play(1);
+ if(id==="photo") play(2);
+}
+
+function start(){
+ show("s2");
+ typeMsg();
+ floating();
+}
+
+function typeMsg(){
+ if(c<messages[m].length){
+  document.getElementById("msg").innerHTML+=messages[m][c++];
+  setTimeout(typeMsg,45);
+ }
+}
+
+function next(){
+ m++;
+ if(m<messages.length){
+  document.getElementById("msg").innerHTML="";
+  c=0;
+  typeMsg();
+ }else{
+  show("final");
+ }
+}
+
+function exitApp(){
+ document.querySelectorAll(".center").forEach(s=>s.classList.add("hidden"));
+ document.getElementById("thankyou").classList.remove("hidden");
+}
+
+function floating(){
+ setInterval(()=>{
+  let el=document.createElement("div");
+  el.className="float";
+  let symbols = ["❤️", "✨", "K","🎆", "🌹"];
+  el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+  el.style.left=Math.random()*100+"vw";
+  el.style.fontSize=20+Math.random()*22+"px";
+  el.style.animationDuration=3.5+Math.random()*4+"s";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),8000);
+ },280);
+}
+</script>
+
+</body>
+</html>
